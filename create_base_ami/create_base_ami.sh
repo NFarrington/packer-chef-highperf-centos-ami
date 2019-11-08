@@ -7,7 +7,7 @@ set -o errexit -o nounset -o pipefail
 #   - At launch time, specify attaching a secondary volume that is 8GB.  Do not set the secondary volume to delete on termination.
 # - Log in to your instance and become root (sudo -i)
 # - Update your instance, especially if it is not the latest (< 7.7):  yum upgrade -y and reboot
-# - run: curl -O https://raw.githubusercontent.com/NFarrington/packer-chef-highperf-centos7-ami/create_base_ami.sh
+# - run: curl -O https://raw.githubusercontent.com/NFarrington/packer-chef-highperf-centos-ami/master/create_base_ami/create_base_ami.sh
 # - Find the volume using "lsblk". It's probaly named "nvme1n1"
 # - export DEVICE="/dev/nvme1n1" # export the DEVICE variable for this script
 # - bash -x create_base_ami.sh # start this script
