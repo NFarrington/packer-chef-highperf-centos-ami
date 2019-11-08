@@ -7,7 +7,7 @@ set -o errexit -o nounset -o pipefail
 #   - At launch time, specify attaching a secondary volume that is 8GB.  Do not set the secondary volume to delete on termination.
 # - Log in to your instance and become root (sudo -i)
 # - Update your instance, especially if it is not the latest (< 7.7):  yum upgrade -y and reboot
-# - run: curl -O https://raw.githubusercontent.com/irvingpop/packer-chef-highperf-centos7-ami/marketplace/create_base_ami.sh
+# - run: curl -O https://raw.githubusercontent.com/NFarrington/packer-chef-highperf-centos7-ami/create_base_ami.sh
 # - Find the volume using "lsblk". It's probaly named "nvme1n1"
 # - export DEVICE="/dev/nvme1n1" # export the DEVICE variable for this script
 # - bash -x create_base_ami.sh # start this script
@@ -123,9 +123,6 @@ sed -i '/IPV6_AUTOCONF=.*/d' $ROOTFS/usr/lib/python2.7/site-packages/cloudinit/n
 sed -i '/^#NAutoVTs=.*/ a\
 NAutoVTs=0' $ROOTFS/etc/systemd/logind.conf
 
-echo ">>> Disabling SELinux"
-sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' $ROOTFS/etc/selinux/config
-
 cat > "${ROOTFS}/etc/cloud/cloud.cfg" << END
 users:
  - default
@@ -160,10 +157,6 @@ cloud_config_modules:
  - yum-add-repo
  - package-update-upgrade-install
  - timezone
- - puppet
- - chef
- - salt-minion
- - mcollective
  - disable-ec2-metadata
  - runcmd
 
